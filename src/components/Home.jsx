@@ -12,16 +12,18 @@ const Home = () => {
   const redirect = useNavigate();
   const [isLoading, setIsloading] = useState(true)
   const { currentUserData, dataFetched , } = useUserData()
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if(!user){
-  //       setIsloading(false)
-  //       redirect('/login')
-  //     }else{
-  //       setLoaderMessage('Loading home page...')
-  //     }
-  //   })
-  // },[])
+
+  //if no user signed in then send annonymous user to log in page
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if(!user){
+        setIsloading(false)  
+        redirect('/login')
+      }else{
+        setLoaderMessage('Loading home page...')
+      }
+    }) 
+  },[])
 
   useEffect(() => {   
     //wait to finished 
