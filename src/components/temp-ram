@@ -1,0 +1,75 @@
+/* eslint-disable no-unused-vars */
+import auth from "../../firebase"
+import { onAuthStateChanged, signOut } from "firebase/auth"
+import { useEffect, useState } from "react"
+import { useNavigate , Link } from "react-router-dom"
+import { getDatabase, get, set, ref, child, onValue } from 'firebase/database'
+import Loader from "./Loader"
+
+
+
+const Home = () => {
+const redirect = useNavigate();
+ const [isLoading, setIsloading] = useState(true)
+ const [currentUserData , setCurrentUserData] = useState({})
+  //Redirect to login page if not logged in 
+  useEffect(() => {
+    const dbref = ref(getDatabase())
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(user.uid, user.email);
+        get(child(dbref, `users/${user.uid}`)).then((snapshot) => {
+          if (snapshot.exists()) {
+            setCurrentUserData(snapshot.val())
+            setIsloading(false)
+          } else {
+            console.log('No data found!');
+          }
+        }).catch((error) => {
+          redirect("/")
+          console.log(error);
+        })
+      }
+      else {
+        redirect('/login')
+      }
+    })
+
+  }, [])
+
+  //Sign out an user
+  const handleSignout = () => {
+    setIsloading(true) //display loading screen as soon as user click signout button 
+    signOut(auth).then(() => {
+      setIsloading(false) //remove loader right before redirection
+      redirect('/login')
+    }
+    ).catch((error) => {
+      console.log(error);
+    })
+  }
+
+  return (
+    <div className="bordered">
+      <h1> Homepage </h1>
+      <div>
+        <h3>Welcome {currentUserData.firstName}!</h3>
+      </div>
+      <div>
+        <p> Your fullname : {currentUserData.firstName + ' ' + currentUserData.lastName} </p>
+        <p> Your email: {currentUserData.email} </p>
+        <p> Your password: {currentUserData.password} </p>
+      </div>
+      <div>
+        <nav>
+          <Link to={'/profile'}> Profile </Link>
+          <Link to={'/createPost'}> Create Post </Link>
+        </nav>
+      </div>
+      <button onClick={handleSignout}> Sign out </button>
+      <Loader state={isLoading} isAuthPage={false} loaderMessage='Loading home page...' />
+    </div>
+  )
+}
+
+export default Home 
