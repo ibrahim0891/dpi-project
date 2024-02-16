@@ -29,7 +29,7 @@ const CreatePost = () => {
         <div className="sign">
             <h1>Create new post.</h1>
             {
-                postState == 'Published' ? <h3> Post published! </h3> :
+                postState == 'Published' ? <h3> Post stored! Your post will be visible after developer implements post viewing system...</h3> :
                 <form action="">
                     <label> Post Title </label>
                     <input type="text" placeholder="Write post title" onChange={(e) => setTitle(e.target.value)} />
