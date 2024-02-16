@@ -1,8 +1,18 @@
+import { useNavigate } from "react-router-dom"
+
+function goBack(){
+  window.history.back()
+}
 const Header = () => {
+  // let navigate = useNavigate()
+  const isHome = window.location.pathname == '/'
   return (
-    // <div>
+    <div>
+       {
+        isHome? null : <button onClick={goBack}>back</button>
+       }
         <h1 className="app-header"> App header </h1>
-    // </div>
+    </div>
   )
 }
 

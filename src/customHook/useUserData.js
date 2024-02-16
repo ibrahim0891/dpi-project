@@ -5,7 +5,8 @@ import auth from "../../firebase"
 
 const useUserData = () => { 
     const [dataFetched , setDataFetched] = useState(false) 
-    const [currentUserData , setCurrentUserData] = useState('')
+    const [currentUserData , setCurrentUserData ] = useState('')
+    const [uid , setUid] = useState('')
     useEffect(() => {
         const dbref = ref(getDatabase())
         onAuthStateChanged(auth, (user) => {
@@ -13,6 +14,7 @@ const useUserData = () => {
                 get(child(dbref, `users/${user.uid}`)).then((snapshot) => {
                     if (snapshot.exists()) {
                         setCurrentUserData(snapshot.val()) 
+                        setUid(user.uid)
                     } else {
                         console.log('No data found!');
                     }
@@ -32,7 +34,7 @@ const useUserData = () => {
 
     }, [])
 
-    return {currentUserData , dataFetched }
+    return {currentUserData , dataFetched , uid }
 }
 
 export default useUserData

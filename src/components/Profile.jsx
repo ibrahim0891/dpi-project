@@ -12,7 +12,7 @@ const Profile = () => {
     }
   }, [currentUserData, dataFetched])
   return(
-    <div>
+    <div className="sign">
         <h1> Profile of {currentUserData.firstName + " " + currentUserData.lastName } </h1>
         <Loader state={isLoading} loaderMessage={"Loading your profile..."}/>
     </div>
