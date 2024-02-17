@@ -1,6 +1,7 @@
 import useUserData from "../customHook/useUserData"
 import { useEffect, useState } from "react"
 import Loader from "./Loader"
+import Feeds from "./Feeds"
 
 const Profile = () => {
   const [isLoading , setIsloading] = useState(true)
@@ -14,6 +15,9 @@ const Profile = () => {
   return(
     <div className="sign">
         <h1> Profile of {currentUserData.firstName + " " + currentUserData.lastName } </h1>
+        <div>
+          <Feeds/>
+        </div>
         <Loader state={isLoading} loaderMessage={"Loading your profile..."}/>
     </div>
   )
