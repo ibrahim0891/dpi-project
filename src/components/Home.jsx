@@ -68,7 +68,7 @@ const Home = () => {
         </nav>
       </div>
       <button onClick={handleSignout}> Sign out </button>
-      <p>App version: 02.17.24 </p>
+      <p>App version: 2.17.24.10311 </p>
       <Loader state={isLoading} isAuthPage={false} loaderMessage={loaderMessage}/>
     </div>
   )

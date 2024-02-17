@@ -60,10 +60,9 @@ const Feeds = () => {
     }
     const handlePostRemoved = (snapshot) => {
         const deletedPostId = snapshot.key
-        // setUserPosts(userPosts.filter((post) => {
-        //     post.id !== deletedPostId
-        // }))
-        if (userPosts.length == 0) {
+        console.log(deletedPostId);
+        setUserPosts((userPosts) => userPosts.filter((post) => { post.id !== deletedPostId }))
+        if (userPosts.length == 1) {
             setIsZeropost(true)
         }
     }
