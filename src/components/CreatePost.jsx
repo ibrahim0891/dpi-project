@@ -1,6 +1,7 @@
 import { getDatabase, ref, set, push, get } from "firebase/database"
 import { useState } from "react"
 import useUserData from "../customHook/useUserData"
+import { Link } from "react-router-dom"
 const CreatePost = () => {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
@@ -29,7 +30,7 @@ const CreatePost = () => {
         <div className="sign">
             <h1>Create new post.</h1>
             {
-                postState == 'Published' ? <h3> Post stored! Your post will be visible after developer implements post viewing system...</h3> :
+                postState == 'Published' ? <h3> Post stored! Go to your<Link to={'/profile'}>profile</Link>to see your posts</h3> :
                 <form action="">
                     <label> Post Title </label>
                     <input type="text" placeholder="Write post title" onChange={(e) => setTitle(e.target.value)} />

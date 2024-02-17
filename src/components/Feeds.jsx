@@ -7,6 +7,7 @@ const Feeds = () => {
     const { currentUserData, dataFetched, uid } = useUserData();
     const [userPosts, setUserPosts] = useState([])
     const [postLoaded, isPostLoaded] = useState(false)
+    const [isZeroPost, setIsZeropost] = useState(false)
 
     useEffect(() => {
         const dbRef = ref(getDatabase())
@@ -20,7 +21,7 @@ const Feeds = () => {
                 setUserPosts(postArray)
                 isPostLoaded(true)
             } else {
-                console.log("You haven't posted anything yet!");
+                setIsZeropost(true)
             }
         }).catch((error) => {
             console.log((error));
@@ -30,17 +31,19 @@ const Feeds = () => {
 
     return (
         <div>
-            {!postLoaded ? "Loading post" :
-                <div>
-                    {userPosts.map((post) =>
-                        <div className="post" key={post.id}>
-                            <h1>{post.title}</h1>
-                            <h3>{post.author}</h3>
-                            <p>{post.content}</p>
-                        </div>
-                    )}
-                </div>
-            }
+            {!isZeroPost ?
+                <div> {!postLoaded ? "Loading post" :
+                    <div>
+                        {userPosts.map((post) =>
+                            <div className="post" key={post.id}>
+                                <h1>{post.title}</h1>
+                                <h3>{post.author}</h3>
+                                <p>{post.content}</p>
+                            </div>
+                        )}
+                    </div>
+                } </div> : "You haven't posted anything yet!"}
+
 
         </div>
     )
