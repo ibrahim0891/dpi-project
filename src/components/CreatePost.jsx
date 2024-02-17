@@ -13,10 +13,15 @@ const CreatePost = () => {
         const postsRef = ref(getDatabase(), 'posts')
         const newPostRef = push(postsRef)
         const postId = newPostRef.key
+        const date = new Date()
         const postData = {
             author: currentUserData.firstName + ' ' + currentUserData.lastName,
             title: title,
-            content: content
+            content: content,
+            timestamp: {
+                time: date.toLocaleTimeString(),
+                date: date.toLocaleDateString()
+            }
         }
         const postRef = ref(getDatabase(), `posts/${uid}/${postId}`)
         set(postRef, postData).then(() => {

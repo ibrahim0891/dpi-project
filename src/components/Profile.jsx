@@ -13,7 +13,7 @@ const Profile = () => {
     }
   }, [currentUserData, dataFetched])
   return(
-    <div className="sign">
+    <div className="sign-post">
         <h1> Profile of {currentUserData.firstName + " " + currentUserData.lastName } </h1>
         <div>
           <Feeds/>
@@ -23,3 +23,5 @@ const Profile = () => {
   )
 }
 export default Profile
+
+
