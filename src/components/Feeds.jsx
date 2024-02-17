@@ -81,7 +81,7 @@ const Feeds = () => {
                     {userPosts.map((post, index) =>
                         <div className="post" key={index}>
                             <h1>{post.title}</h1>
-                            <h3>Written By: {post.author} at {post.time.time} in {post.time.date} </h3>
+                            <h3>Written By: {post.author} at {post.timestamp.time} in {post.timestamp.date} </h3>
                             <p>{post.content}</p>
                             <button onClick={() => { handleDelete(post.id) }}>Delete</button>
                         </div>
