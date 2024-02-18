@@ -50,9 +50,11 @@ const Feeds = () => {
         const postData = snapshot.val()
         if (postData.title && postData.content) {
             const newPost = { id: snapshot.key, ...postData }
-            setUserPosts((prevPost) => {
-                return [...prevPost, newPost]
-            })
+            if (!userPosts.length == 1){
+                setUserPosts((prevPost) => {
+                    return [...prevPost, newPost]
+                })
+            }
         }
 
         setIsZeropost(false)
@@ -70,8 +72,10 @@ const Feeds = () => {
         const postRef = ref(getDatabase(), `/posts/${uid}/${postID}`)
         // console.log(postRef);
         remove(postRef)
-        setUserPosts(userPosts.filter((post) => post.id !== postID))
-
+        setUserPosts((userPosts)=> userPosts.filter((post) => post.id !== postID))
+        if(userPosts.length == 1){
+            setIsZeropost(true)
+        }
     }
     return (
         <div>
