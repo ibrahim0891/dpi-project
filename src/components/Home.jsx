@@ -6,12 +6,12 @@ import { useNavigate, Link } from "react-router-dom"
 import Loader from "./Loader"
 import useUserData from "../customHook/useUserData"
 
-
 const Home = () => {
   const [loaderMessage , setLoaderMessage] = useState('')
   const redirect = useNavigate();
   const [isLoading, setIsloading] = useState(true)
   const { currentUserData, dataFetched , } = useUserData()
+
 
   //if no user signed in then send annonymous user to log in page
   useEffect(() => {
@@ -65,10 +65,11 @@ const Home = () => {
         <nav>
           <Link to={'/profile'}> Profile </Link>
           <Link to={'/createPost'}> Create Post </Link>
+          <Link to={'/people'}> People </Link>
         </nav>
       </div>
       <button onClick={handleSignout}> Sign out </button>
-      <p>App version: 2.17.24.10311 </p>
+      <p className="center-text">App version: 2.18.24.08281 </p>
       <Loader state={isLoading} isAuthPage={false} loaderMessage={loaderMessage}/>
     </div>
   )

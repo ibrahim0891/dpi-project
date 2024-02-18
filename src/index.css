@@ -1,6 +1,6 @@
-/* *{
+*{
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
-} */
+}
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,8 +15,10 @@ input{
 }
 
 .app-header {
-  background: #acd4ff;
-  padding: 2.5rem;
+  background: #ffacac;
+  padding: 1rem 2rem;
+  margin: 0;
+  font-size: 2rem;
   text-align: center;
 }
 image{
@@ -131,4 +133,16 @@ button:focus {
   border:  1px solid rgba(0,0,0,0.1);
   padding: 1rem 2rem;
   margin-bottom: 2rem;
+}
+.center-text{
+  text-align: center;
+}
+
+.userCard{
+  border:  1px solid rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 1rem ;
 }

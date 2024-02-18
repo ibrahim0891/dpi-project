@@ -1,27 +1,33 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import useUserData from "../customHook/useUserData"
-import { getDatabase, ref, child, get, remove, onChildAdded, onChildRemoved, update } from "firebase/database"
+import { getDatabase, ref, child, get, remove, onChildAdded, onChildRemoved } from "firebase/database"
 
 
 const Feeds = () => {
-    const { currentUserData, dataFetched, uid } = useUserData();
-    const [userPosts, setUserPosts] = useState([])
+    const { currentUserData,  uid } = useUserData(); //get current user id
+    const [userPosts, setUserPosts] = useState([]) //set an array to store the posts of user
     const [loadingPost, setIsloadingPost] = useState(true)
-    const [isZeroPost, setIsZeropost] = useState(false)
+    const [isZeroPost, setIsZeropost] = useState(false) //return true if user haven't posted any shit yet
 
+    //update posts in realtime
     useEffect(() => {
         const db = getDatabase()
+        //get initial posts snapshot
         get(child(ref(db), `/posts/${uid}`)).then((snapshot) => {
             handlePostSnapShot(snapshot);
         }).catch((error) => {
             console.log((error));
         }).finally(() => {
             setIsloadingPost(false)
-
         })
+
+        //reture the snapshot for any new post
         onChildAdded(ref(db, `/posts/${uid}`), (snapshot) => {
             handlePostAdded(snapshot)
         })
+
+        //return snapshot for any removed post
         onChildRemoved(ref(db, `/posts/${uid}`), (snapshot) => {
             handlePostRemoved(snapshot)
         })
@@ -30,7 +36,7 @@ const Feeds = () => {
 
     const handlePostSnapShot = (snapshot) => {
         if (snapshot.exists()) {
-            const postArray = []
+            const postArray = [] 
             snapshot.forEach((postNode) => {
                 let post = postNode.val()
                 if (post.title && post.content) {
