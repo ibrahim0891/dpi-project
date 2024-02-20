@@ -70,7 +70,7 @@ const Home = () => {
         </nav>
       </div>
       <button onClick={handleSignout}> Sign out </button>
-      <p className="center-text">App version: 2.20.24.10061 </p>
+      <p className="center-text">App version: 2.21.24.12330 </p>
       <Loader state={isLoading} isAuthPage={false} loaderMessage={loaderMessage}/>
     </div>
   )
