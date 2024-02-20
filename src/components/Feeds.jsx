@@ -8,7 +8,7 @@ const Feeds = () => {
     const { currentUserData,  uid } = useUserData(); //get current user id
     const [userPosts, setUserPosts] = useState([]) //set an array to store the posts of user
     const [loadingPost, setIsloadingPost] = useState(true)
-    const [isZeroPost, setIsZeropost] = useState(false) //return true if user haven't posted any shit yet
+    const [isZeroPost, setIsZeropost] = useState(true) //return true if user haven't posted any shit yet
 
     //update posts in realtime
     useEffect(() => {
@@ -29,9 +29,9 @@ const Feeds = () => {
 
         //return snapshot for any removed post
         onChildRemoved(ref(db, `/posts/${uid}`), (snapshot) => {
-            // handlePostRemoved(snapshot)
+            handlePostRemoved(snapshot)
         })
-
+        console.log(userPosts);
     }, [currentUserData])
 
     const handlePostSnapShot = (snapshot) => {
@@ -43,9 +43,13 @@ const Feeds = () => {
                     postArray.push({ id: postNode.key, ...post })
                 }
             })
-            setUserPosts(postArray)
+            // setUserPosts(postArray)
             if (postArray.length > 0) {
                 setUserPosts(postArray)
+            }
+            else{
+                setUserPosts([])
+                setIsZeropost(true)
             }
         } else {
             setIsZeropost(true)
@@ -68,22 +72,25 @@ const Feeds = () => {
     }
 
     //remove post if it is removed form db
-    // const handlePostRemoved = (snapshot) => {
-    //     const deletedPostId = snapshot.key
-    //     console.log(deletedPostId);
-    //     setUserPosts((userPosts) => userPosts.filter((userPosts) => { userPosts.id !== deletedPostId }))
-    //     if (userPosts.length == 1) {
-    //         setIsZeropost(true)
-    //     }
-    // }
+    const handlePostRemoved = (snapshot) => {
+        const deletedPostId = snapshot.key
+        console.log(deletedPostId);
+        setUserPosts((userPosts) => userPosts.filter((post) => { post.id !== deletedPostId }))
+        if (userPosts.length <= 1) {
+            setIsZeropost(true)
+        }
+    }
     //remove post when user click delebe buton
     const handleDelete = (postID) => {
         const postRef = ref(getDatabase(), `/posts/${uid}/${postID}`)
         // console.log(postRef);
         remove(postRef)
         setUserPosts((userPosts)=> userPosts.filter((post) => post.id !== postID))
-        if(userPosts.length == 1){
+        if(userPosts.length <= 1){
             setIsZeropost(true)
+            // console.log("no user post");
+        }else{
+            console.log('Error');
         }
     }
     return (
