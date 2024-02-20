@@ -29,7 +29,7 @@ const Feeds = () => {
 
         //return snapshot for any removed post
         onChildRemoved(ref(db, `/posts/${uid}`), (snapshot) => {
-            handlePostRemoved(snapshot)
+            // handlePostRemoved(snapshot)
         })
         console.log(userPosts);
     }, [currentUserData])
@@ -72,14 +72,14 @@ const Feeds = () => {
     }
 
     //remove post if it is removed form db
-    const handlePostRemoved = (snapshot) => {
-        const deletedPostId = snapshot.key
-        console.log(deletedPostId);
-        setUserPosts((userPosts) => userPosts.filter((post) => { post.id !== deletedPostId }))
-        if (userPosts.length <= 1) {
-            setIsZeropost(true)
-        }
-    }
+    // const handlePostRemoved = (snapshot) => {
+    //     const deletedPostId = snapshot.key
+    //     console.log(deletedPostId);
+    //     setUserPosts((userPosts) => userPosts.filter((post) => { post.id !== deletedPostId }))
+    //     if (userPosts.length <= 1) {
+    //         setIsZeropost(true)
+    //     }
+    // }
     //remove post when user click delebe buton
     const handleDelete = (postID) => {
         const postRef = ref(getDatabase(), `/posts/${uid}/${postID}`)
@@ -102,7 +102,7 @@ const Feeds = () => {
                             <h1>{post.title}</h1>
                             <h3>Written By: {post.author} at {post.timestamp.time} in {post.timestamp.date} </h3>
                             <p>{post.content}</p>
-                            <button onClick={() => { handleDelete(post.id) ; console.log(post.id); }}>Delete</button>
+                            <button onClick={() => { handleDelete(post.id) ;   }}>Delete</button>
                         </div>
                     )}
                 </div>
