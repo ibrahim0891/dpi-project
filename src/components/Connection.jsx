@@ -41,7 +41,7 @@ const Connection = () => {
 
     })
     // console.log(requestList);
-  }, [requestList])
+  })
 
 
   const userByRef = ref(getDatabase(), `/users/`)
