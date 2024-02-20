@@ -44,7 +44,7 @@ const CreatePost = () => {
             <h1>Create new post.</h1>
             {/* send user to profile page is post is published otherwise show the form to create a new post  */}
             {
-                postState == 'Published' ? redirect("/profile"):
+                postState == 'Published' ? "Post Published...":
                 <form action="">
                     <label> Post Title </label>
                     <input type="text" placeholder="Write post title" onChange={(e) => setTitle(e.target.value)} />

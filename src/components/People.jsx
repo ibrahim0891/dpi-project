@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react"
-import { getDatabase , ref , get} from "firebase/database"
+import { getDatabase , ref , get, set , push} from "firebase/database"
 import useUserData from "../customHook/useUserData";
 import Loader from "./Loader";
 const People = () => {
@@ -34,9 +34,15 @@ const People = () => {
       })
     },[uid])
     
-    const sendConnectReq = (recipientId ) => {
-        const senderID = uid
-      console.log(recipientId , senderID);
+    const sendConnectReq = (recipientId , senderId) => {
+        let connectionRequestNodeRef = push(ref(database, `/users/${recipientId}/connections/recieveRequests`))
+        let connectionRequestSentNodeRef = push(ref(database, `/users/${uid}/connections/sentRequest`))
+        set(connectionRequestNodeRef ,{ [senderId] : true} ).then(() => {
+          console.log("Request Sent");
+        }) 
+        set(connectionRequestSentNodeRef , {[recipientId]: true}).then(() => {
+          console.log("You send request to: " + recipientId);
+        })
     }
    
   return (
@@ -44,7 +50,7 @@ const People = () => {
         <div className="sign"> 
             {userList.map((user,index) => 
               <div key={index} className="userCard">
-                <h3>{user.firstName}</h3> <button onClick={(e)=>{sendConnectReq(user.id)}}>Connect</button>
+                <h3>{user.firstName}</h3> <button onClick={(e)=>{sendConnectReq(user.id , uid )}}>Connect</button>
               </div>
             )}
         </div>
