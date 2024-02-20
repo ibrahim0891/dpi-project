@@ -63,9 +63,10 @@ const Home = () => {
       </div>
       <div>
         <nav>
+          <Link to={'/connect'}> Connect </Link>
+          <Link to={'/people'}> People </Link>
           <Link to={'/profile'}> Profile </Link>
           <Link to={'/createPost'}> Create Post </Link>
-          <Link to={'/people'}> People </Link>
         </nav>
       </div>
       <button onClick={handleSignout}> Sign out </button>

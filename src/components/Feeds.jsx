@@ -13,7 +13,7 @@ const Feeds = () => {
     //update posts in realtime
     useEffect(() => {
         const db = getDatabase()
-        //get initial posts snapshot
+        //get initial posts snapshotconnection
         get(child(ref(db), `/posts/${uid}`)).then((snapshot) => {
             handlePostSnapShot(snapshot);
         }).catch((error) => {

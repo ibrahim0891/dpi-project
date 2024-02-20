@@ -11,7 +11,7 @@ const Header = () => {
        {
         isHome? null : <button onClick={goBack}>back</button>
        }
-        <h1 className="app-header"> App header </h1>
+        <h1 className="app-header"> {'{Experimental UI}'} </h1>
     </div>
   )
 }
