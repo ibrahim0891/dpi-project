@@ -19,7 +19,7 @@ const Home = () => {
       if(!user){
         setIsloading(false)  
         redirect('/login')
-      }else{
+      }else{ 
         setLoaderMessage('Loading home page...')
       }
     }) 
